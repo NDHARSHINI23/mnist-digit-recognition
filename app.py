@@ -3,6 +3,8 @@ import numpy as np
 from tensorflow import keras
 from PIL import Image, ImageOps
 import pandas as pd
+import matplotlib.pyplot as plt
+from tensorflow.keras.datasets import mnist
 
 # -------------------------------
 # Load Model
@@ -62,22 +64,17 @@ with col2:
         st.success(f"Predicted Digit: {digit}")
         st.write(f"Confidence: {confidence*100:.2f}%")
 
-        # -------------------------------
         # Confidence Bar Chart
-        # -------------------------------
         df = pd.DataFrame(prediction, columns=[str(i) for i in range(10)])
         st.bar_chart(df.T, height=250)
 
 # -------------------------------
-# Optional: Tabs for Info / Example
+# Tabs: Sample Digits / Model Info
 # -------------------------------
 tab1, tab2 = st.tabs(["Sample Digits", "Model Info"])
 
 with tab1:
     st.write("Here are some sample MNIST digits:")
-    import matplotlib.pyplot as plt
-    from tensorflow.keras.datasets import mnist
-
     (x_train, y_train), (_, _) = mnist.load_data()
     fig, axes = plt.subplots(1,5, figsize=(12,3))
     for i in range(5):
